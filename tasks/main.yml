@@ -1,6 +1,10 @@
 # tasks/main.yml
 
-- include: 'magma_install.yml'
-- include: 'magmad.yml'
-- include: 'magma_join.yml'
-  when: not {{ join_node }}
+- name: Hypriot | Download the docker image
+  get_url:
+    url: "https://downloads.hypriot.com/docker-hypriot_{{ hypriot_docker_version }}-1_armhf.deb"
+    dest: "/tmp/docker-hypriot_{{ hypriot_docker_version }}-1_armhf.deb"
+  register: hypriot_image_downloaded
+
+- name: Hypriot | Install Hypriot image
+  command: "dpkg -i /tmp/docker-hypriot_{{ hypriot_docker_version }}-1_armhf.deb"
