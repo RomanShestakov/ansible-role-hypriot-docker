@@ -1,10 +1,15 @@
+[Unit]
+Description=Docker Application Container Engine
+Documentation=https://docs.docker.com
+After=network.target docker.socket
+Requires=docker.socket
+
 [Service]
-EnvironmentFile=-/etc/sysconfig/docker
-EnvironmentFile=-/etc/sysconfig/docker-storage
-EnvironmentFile=-/etc/sysconfig/docker-network
+Type=notify
 ExecStart=/usr/bin/docker daemon -H fd://
-          # $OPTIONS \
-          # $DOCKER_STORAGE_OPTIONS \
-          # $DOCKER_NETWORK_OPTIONS \
-          # $BLOCK_REGISTRY \
-          # $INSECURE_REGISTRY
+LimitNOFILE=1048576
+LimitNPROC=1048576
+TasksMax=1048576
+
+[Install]
+Also=docker.socket
