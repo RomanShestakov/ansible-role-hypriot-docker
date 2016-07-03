@@ -11,5 +11,6 @@
   when: hypriot_image_downloaded.changed
 
 - name: Hypriot | make sure docker is started (and runs on boot)
+  become: true
   service: name=docker state=started enabled=yes
-  when: hypriot_image_downloaded.changed
+  #when: hypriot_image_downloaded.changed
