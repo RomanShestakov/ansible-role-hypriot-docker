@@ -12,5 +12,9 @@
 
 - name: Hypriot | make sure docker is started (and runs on boot)
   sudo: true
-  service: name=docker state=started enabled=yes
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+    daemon_reload: yes
   #when: hypriot_image_downloaded.changed
