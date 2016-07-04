@@ -9,12 +9,3 @@
 - name: Hypriot | Install Hypriot image
   command: "dpkg -i /tmp/docker-hypriot_{{ hypriot_docker_version }}-1_armhf.deb"
   when: hypriot_image_downloaded.changed
-
-- name: Hypriot | make sure docker is started (and runs on boot)
-  sudo: true
-  systemd:
-    name: docker
-    state: started
-    enabled: yes
-    daemon_reload: yes
-  #when: hypriot_image_downloaded.changed
